@@ -6,7 +6,7 @@ import "./site.css";
 const asset = (path) => `https://raw.githubusercontent.com/WRyouAldi/-novem-ever-yours-/main/assets/${path}`;
 
 function FloatingPetals() {
-  return <div className="petal-field" aria-hidden="true">{Array.from({length:9},(_,i)=><i key={i} style={{"--i":i}}>✿</i>)}</div>;
+  return <div className="petal-field" aria-hidden="true">{Array.from({length:7},(_,i)=><i key={i} style={{"--i":i}}>✿</i>)}</div>;
 }
 
 function Hero() {
@@ -22,6 +22,7 @@ function Hero() {
     <motion.div className="hero-photo hero-photo-back" style={{y:backY}} />
     <motion.div className="hero-atmosphere" style={{y:midY}} />
     <motion.div className="hero-florals" style={{y:frontY}} aria-hidden="true"><span>✿</span><span>✧</span><span>✿</span></motion.div>
+    <FloatingPetals />
     <motion.div className="hero-copy" style={{y:titleY,opacity}}>
       <p className="eyebrow">27 · 11 · 25 — OUR LITTLE UNIVERSE</p>
       <h1>Novem-ever<br/><em>Yours.</em></h1>
@@ -40,8 +41,8 @@ function StorySection({number,kicker,title,body,image,align="left"}) {
   const textY=useTransform(scrollYProgress,[0,1],[reduce?0:35,reduce?0:-35]);
   return <section className={`story story-${align}`} ref={ref}>
     <div className="story-index">{number}</div>
-    <motion.div className="story-image-wrap" style={{y:imageY}}><img src={asset(image)} alt={title} loading="lazy"/></motion.div>
-    <motion.div className="story-copy" style={{y:textY}}>
+    <motion.div className="story-image-wrap" style={{y:imageY}} initial={{opacity:0,clipPath:"inset(10% 0 10% 0)",scale:.96}} whileInView={{opacity:1,clipPath:"inset(0% 0 0% 0)",scale:1}} viewport={{once:false,amount:.2}} transition={{duration:.9,ease:[.22,1,.36,1]}}><img src={asset(image)} alt={title} loading="lazy" onError={(event)=>{event.currentTarget.classList.add("image-failed");}}/></motion.div>
+    <motion.div className="story-copy" style={{y:textY}} initial={{opacity:0,y:32}} whileInView={{opacity:1,y:0}} viewport={{once:false,amount:.35}} transition={{duration:.75,ease:[.22,1,.36,1]}}>
       <p className="eyebrow">{kicker}</p><h2>{title}</h2><p>{body}</p>
     </motion.div>
   </section>;
@@ -57,7 +58,7 @@ function Journey() {
     <h2>Our Journey</h2>
     <div className="journey-line"><motion.span style={{scaleY:reduce?1:scale}} /></div>
     <div className="milestones">
-      {[["27","The beginning"],["11","A day to remember"],["25","Our promise"],["∞","And still, forever"]].map(([date,label],i)=><motion.article className="milestone" key={date} initial={reduce?false:{opacity:0,y:35}} whileInView={{opacity:1,y:0}} viewport={{once:false,amount:.5}} transition={{duration:.7,delay:i*.08}}><span>{date}</span><p>{label}</p></motion.article>)}
+      {[["27","The beginning"],["11","A day to remember"],["25","Our promise"],["∞","And still, forever"]].map(([date,label],i)=><motion.article className="milestone" key={date} initial={reduce?false:{opacity:0,y:35,scale:.97}} whileInView={{opacity:1,y:0,scale:1}} viewport={{once:false,amount:.5}} transition={{duration:.7,delay:i*.08,ease:[.22,1,.36,1]}}><span>{date}</span><p>{label}</p></motion.article>)}
     </div>
   </section>;
 }
@@ -69,7 +70,7 @@ function Closing() {
   const flowerY=useTransform(scrollYProgress,[0,1],[reduce?0:65,reduce?0:-65]);
   const flowerRotate=useTransform(scrollYProgress,[0,1],reduce?[0,0]:[-12,12]);
   return <section className="closing" id="forever" ref={ref}>
-    <motion.div className="closing-flower" style={{y:flowerY,rotate:flowerRotate}} aria-hidden="true">✿</motion.div>
+    <motion.div className="closing-flower" style={{y:flowerY,rotate:flowerRotate}} initial={{opacity:0,scale:.65}} whileInView={{opacity:.28,scale:1}} viewport={{once:false,amount:.3}} transition={{duration:1.2,ease:"easeOut"}} aria-hidden="true">✿</motion.div>
     <p className="eyebrow">IN EVERY SEASON, IN EVERY VERSION OF US</p>
     <h2>Forever &<br/><em>Always.</em></h2>
     <p className="closing-note">Novem-ever yours, with all my love.</p>
