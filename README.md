@@ -17,3 +17,7 @@ npm run build
 
 ## Status
 Initial scaffold — visual and interaction QA still required before publication.
+
+## GitHub Pages
+
+This project is published from the production `dist/` output using the GitHub Actions Pages workflow. In repository Settings → Pages, keep the deployment source set to **GitHub Actions**.
