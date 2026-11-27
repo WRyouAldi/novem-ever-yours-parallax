@@ -9,9 +9,39 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Allura&display=swap" rel="stylesheet" />
+    <style>
+      html,body{margin:0;min-height:100%;background:#f5f0e8;color:#2d3440}
+      #boot-status{min-height:100svh;display:grid;place-items:center;padding:28px;box-sizing:border-box;text-align:center;font:14px/1.7 sans-serif}
+      #boot-status[hidden]{display:none}
+      #boot-status p{max-width:34rem}
+    </style>
+    <script>
+      window.__showBootError = function (message) {
+        var root = document.getElementById("root");
+        var status = document.getElementById("boot-status");
+        if (root) root.hidden = true;
+        if (status) {
+          status.hidden = false;
+          status.innerHTML = "<div><strong>Halaman belum berhasil dimuat.</strong><p></p><p>Periksa koneksi lalu muat ulang. Jika tetap muncul, kirimkan teks error ini.</p></div>";
+          status.querySelector("p").textContent = message || "JavaScript gagal dijalankan.";
+        }
+      };
+      window.addEventListener("error", function (event) {
+        if (event.target && (event.target.tagName === "SCRIPT" || event.target.tagName === "LINK")) {
+          window.__showBootError("Asset gagal dimuat: " + (event.target.src || event.target.href));
+        } else if (event.message) {
+          window.__showBootError(event.message);
+        }
+      }, true);
+      window.addEventListener("unhandledrejection", function (event) {
+        var reason = event.reason;
+        window.__showBootError(reason && reason.message ? reason.message : String(reason || "Promise gagal."));
+      });
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="boot-status"><div><strong>Novem-ever Yours</strong><p>Menyiapkan cerita kita…</p></div></div>
+    <div id="root" hidden></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
