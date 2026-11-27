@@ -94,4 +94,27 @@ function App() {
   </main>;
 }
 
-createRoot(document.getElementById("root")).render(<React.StrictMode><App/></React.StrictMode>);
+class AppErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { error: null }; }
+  static getDerivedStateFromError(error) { return { error }; }
+  componentDidCatch(error) {
+    window.__showBootError?.(error?.message || "Aplikasi mengalami error saat render.");
+  }
+  render() {
+    return this.state.error ? null : this.props.children;
+  }
+}
+
+const rootElement = document.getElementById("root");
+const bootElement = document.getElementById("boot-status");
+try {
+  rootElement.hidden = false;
+  createRoot(rootElement).render(
+    <React.StrictMode>
+      <AppErrorBoundary><App /></AppErrorBoundary>
+    </React.StrictMode>
+  );
+  if (bootElement) bootElement.hidden = true;
+} catch (error) {
+  window.__showBootError?.(error?.message || String(error));
+}
