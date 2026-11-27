@@ -85,7 +85,7 @@ function App() {
     <motion.div className="reading-progress" style={{scaleX:progress}} />
     <Hero />
     <div className="intro" id="beginning"><p className="eyebrow">A STORY THAT FEELS LIKE HOME</p><h2>Some moments pass.<br/><em>Some become our forever.</em></h2><p>Take your time. This little world is made to be felt, not rushed.</p></div>
-    <StorySection number="01" kicker="WHERE IT ALL BEGAN" title="The Beginning" body="Dari satu hari sederhana, tumbuh cerita yang ingin selalu kita jaga. Setiap langkah kecil membawa kita ke tempat yang sama: saling memilih." image="photos/cover-fhd.jpg" />
+    <StorySection number="01" kicker="WHERE IT ALL BEGAN" title="The Beginning" body="Dari satu hari sederhana, tumbuh cerita yang ingin selalu kita jaga. Setiap langkah kecil membawa kita ke tempat yang sama: saling memilih." image="photos/cover.webp" />
     <StorySection number="02" kicker="MOMENTS, KEPT CLOSE" title="Little Things" body="Tawa, perjalanan, tatapan, dan hal-hal kecil yang mungkin terlihat biasa. Tapi bersamamu, semuanya punya arti." image="photos/gallery/photo-08.webp" align="right" />
     <Journey />
     <StorySection number="03" kicker="MORE THAN A MEMORY" title="Still Choosing You" body="Bukan tentang hari yang selalu sempurna. Ini tentang tetap berjalan berdampingan, di setiap musim yang datang." image="photos/gallery/photo-21.webp" />
