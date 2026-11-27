@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import "./site.css";
@@ -78,6 +78,10 @@ function Closing() {
 }
 
 function App() {
+  useEffect(() => {
+    const boot = document.getElementById("boot-status");
+    if (boot) boot.hidden = true;
+  }, []);
   const reduce=useReducedMotion();
   const {scrollYProgress}=useScroll();
   const progress=useTransform(scrollYProgress,[0,1],[0,1]);
@@ -114,7 +118,6 @@ try {
       <AppErrorBoundary><App /></AppErrorBoundary>
     </React.StrictMode>
   );
-  if (bootElement) bootElement.hidden = true;
 } catch (error) {
   window.__showBootError?.(error?.message || String(error));
 }
